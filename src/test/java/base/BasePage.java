@@ -29,7 +29,12 @@ public class BasePage {
     }
 
     protected void clickElement(By locator) {
-        waitForElementToBeClickable(locator).click();
+        try {
+            waitForElementToBeClickable(locator).click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            WebElement element = driver.findElement(locator);
+            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
     }
 
     protected void typeText(By locator, String text) {

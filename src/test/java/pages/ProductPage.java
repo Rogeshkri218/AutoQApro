@@ -13,6 +13,16 @@ public class ProductPage extends BasePage {
     private By firstProductAddToCart = By.xpath("(//a[contains(@class, 'add-to-cart')])[1]");
     private By continueShoppingBtn = By.cssSelector("button.btn-success");
 
+    // Category Locators
+    private By womenCategoryLink = By.xpath("//a[contains(@href, '#Women')]");
+    private By womenDressSubcategoryLink = By.xpath("//a[contains(@href, '/category_products/1')]");
+    private By categoryTitle = By.xpath("//h2[@class='title text-center']");
+
+    // Product Details Locators
+    private By viewProductFirstLink = By.xpath("(//ul[@class='nav nav-pills nav-justified']/li/a)[1]");
+    private By productNameText = By.xpath("//div[@class='product-information']/h2");
+    private By productPriceText = By.xpath("//div[@class='product-information']/span/span");
+
     public ProductPage(WebDriver driver) {
         super(driver);
     }
@@ -36,5 +46,26 @@ public class ProductPage extends BasePage {
 
     public void continueShopping() {
         clickElement(continueShoppingBtn);
+    }
+
+    public void browseWomenDressCategory() {
+        clickElement(womenCategoryLink);
+        clickElement(womenDressSubcategoryLink);
+    }
+
+    public String getCategoryTitle() {
+        return getElementText(categoryTitle);
+    }
+
+    public void openFirstProductDetails() {
+        clickElement(viewProductFirstLink);
+    }
+
+    public String getProductName() {
+        return getElementText(productNameText);
+    }
+
+    public String getProductPrice() {
+        return getElementText(productPriceText);
     }
 }

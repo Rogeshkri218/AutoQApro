@@ -3,7 +3,9 @@ package utilities;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 
@@ -17,12 +19,22 @@ public class DriverFactory {
     public static WebDriver initDriver(String browser) {
         WebDriver webDriver = null;
 
+        boolean isHeadless = Boolean.parseBoolean(ConfigReader.getProperty("headless"));
+
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
-            webDriver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            if (isHeadless) {
+                options.addArguments("--headless=new");
+            }
+            webDriver = new ChromeDriver(options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            webDriver = new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            if (isHeadless) {
+                options.addArguments("-headless");
+            }
+            webDriver = new FirefoxDriver(options);
         } else {
             throw new RuntimeException("Browser not supported: " + browser);
         }

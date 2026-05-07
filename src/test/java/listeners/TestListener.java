@@ -29,20 +29,23 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.get().log(Status.FAIL, "Test Failed");
+        test.get().log(Status.FAIL, "Test Failed: " + result.getMethod().getMethodName());
         test.get().log(Status.FAIL, result.getThrowable());
         
         WebDriver driver = DriverFactory.getDriver();
         if (driver != null) {
             String screenshotPath = ScreenshotUtil.takeScreenshot(driver, result.getMethod().getMethodName());
-            test.get().addScreenCaptureFromPath(screenshotPath);
+            // Add relative or absolute path based on Extent config, here we use the returned absolute path
+            test.get().addScreenCaptureFromPath(screenshotPath, "Failure Screenshot");
         }
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        test.get().log(Status.SKIP, "Test Skipped");
-        test.get().log(Status.SKIP, result.getThrowable());
+        test.get().log(Status.SKIP, "Test Skipped / Retrying: " + result.getMethod().getMethodName());
+        if (result.getThrowable() != null) {
+            test.get().log(Status.SKIP, result.getThrowable());
+        }
     }
 
     @Override

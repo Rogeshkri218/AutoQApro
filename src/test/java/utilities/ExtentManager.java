@@ -20,7 +20,7 @@ public class ExtentManager {
             new File(directory).mkdirs();
             
             ExtentSparkReporter sparkReporter = new ExtentSparkReporter(directory + reportName);
-            sparkReporter.config().setTheme(Theme.STANDARD);
+            sparkReporter.config().setTheme(Theme.DARK);
             sparkReporter.config().setDocumentTitle("AutoQA Pro Automation Report");
             sparkReporter.config().setReportName("E-Commerce Test Execution Results");
 
