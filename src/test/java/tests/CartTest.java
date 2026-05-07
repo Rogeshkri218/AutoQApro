@@ -12,11 +12,9 @@ public class CartTest extends BaseTest {
     public void testAddProductToCart() {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
-        
         productPage.navigateToProducts();
         productPage.addFirstProductToCart();
         productPage.continueShopping();
-        
         cartPage.navigateToCart();
         Assert.assertTrue(cartPage.isProductInCart(), "Product should be added to the cart.");
     }
@@ -25,13 +23,9 @@ public class CartTest extends BaseTest {
     public void testRemoveProductFromCart() {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
-        
-        // Add a product first
         productPage.navigateToProducts();
         productPage.addFirstProductToCart();
         productPage.continueShopping();
-        
-        // Remove it
         cartPage.navigateToCart();
         cartPage.removeProductFromCart();
         

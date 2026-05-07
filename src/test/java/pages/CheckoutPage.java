@@ -5,18 +5,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class CheckoutPage extends BasePage {
-
     private By placeOrderButton = By.xpath("//a[contains(@href, '/payment')]");
-    
-    // Payment Form
+
     private By nameOnCardInput = By.name("name_on_card");
     private By cardNumberInput = By.name("card_number");
     private By cvcInput = By.name("cvc");
     private By expiryMonthInput = By.name("expiry_month");
     private By expiryYearInput = By.name("expiry_year");
     private By payConfirmButton = By.id("submit");
-    
-    // Order Confirmation
+
     private By orderConfirmedText = By.xpath("//b[contains(text(), 'Order Placed!')]");
     private By continueButton = By.xpath("//a[text()='Continue']");
 
