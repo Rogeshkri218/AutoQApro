@@ -24,6 +24,7 @@ public class DriverFactory {
         if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
+            options.addArguments("--start-maximized"); // Maximize browser via options
             if (isHeadless) {
                 options.addArguments("--headless=new");
             }
