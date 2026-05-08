@@ -1,8 +1,9 @@
 package base;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import utilities.ConfigReader;
 import utilities.DriverFactory;
 
@@ -10,17 +11,23 @@ public class BaseTest {
 
     protected WebDriver driver;
 
-    @BeforeMethod
-    public void setUp() {
+    @BeforeSuite
+    public void setUpSuite() {
         String browser = ConfigReader.getProperty("browser");
-        driver = DriverFactory.initDriver(browser);
+        DriverFactory.initDriver(browser);
         
         String baseUrl = ConfigReader.getProperty("baseUrl");
-        driver.get(baseUrl);
+        DriverFactory.getDriver().get(baseUrl);
     }
 
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
+    @BeforeClass
+    public void setUpClass() {
+        // Assign the single ThreadLocal driver instance to the class-level variable
+        this.driver = DriverFactory.getDriver();
+    }
+
+    @AfterSuite
+    public void tearDownSuite() {
+        DriverFactory.quitDriver();
     }
 }

@@ -24,8 +24,16 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    protected WebElement waitForElementPresence(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     protected WebElement waitForElementToBeClickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    protected void navigateTo(String url) {
+        driver.get(url);
     }
 
     protected void clickElement(By locator) {

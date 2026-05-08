@@ -3,6 +3,7 @@ package pages;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utilities.ConfigReader;
 
 public class LoginPage extends BasePage {
 
@@ -41,6 +42,16 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void openLoginPage() {
+        String baseUrl = ConfigReader.getProperty("baseUrl");
+        navigateTo(baseUrl);
+        // Safely clear session to ensure login page can be accessed
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
+        clickElement(signupLoginLink);
+        waitForElementPresence(loginEmailInput);
     }
 
     public void navigateToLogin() {
@@ -95,7 +106,7 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isEmailFieldRequired() {
-        String required = waitForElement(loginEmailInput).getAttribute("required");
+        String required = waitForElementPresence(loginEmailInput).getAttribute("required");
         return required != null && (required.equals("true") || required.equals("required") || required.isEmpty());
     }
 }

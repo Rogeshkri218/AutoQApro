@@ -30,7 +30,7 @@ public class LoginTest extends BaseTest {
     public void testValidLogin(String email, String password) {
         LoginPage loginPage = new LoginPage(driver);
         
-        loginPage.navigateToLogin();
+        loginPage.openLoginPage();
         loginPage.login(email, password);
         
         // As this is a sample without a real valid user configured, 
@@ -42,7 +42,7 @@ public class LoginTest extends BaseTest {
     public void testInvalidLogin(String email, String password) {
         LoginPage loginPage = new LoginPage(driver);
         
-        loginPage.navigateToLogin();
+        loginPage.openLoginPage();
         loginPage.login(email, password);
         
         Assert.assertTrue(loginPage.isLoginErrorDisplayed(), "Error message should be displayed for invalid login.");
@@ -52,7 +52,7 @@ public class LoginTest extends BaseTest {
     public void testLogout() {
         LoginPage loginPage = new LoginPage(driver);
         
-        loginPage.navigateToLogin();
+        loginPage.openLoginPage();
         // Register a temporary user to ensure we can log in and out reliably
         String randomEmail = "user" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
         loginPage.registerNewUser("TestUser", randomEmail);
@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 4, description = "Verify dynamic user registration flow")
     public void testRegistrationFlow() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.navigateToLogin();
+        loginPage.openLoginPage();
         
         String randomEmail = "newuser_" + System.currentTimeMillis() + "@test.com";
         loginPage.registerNewUser("John Doe", randomEmail);
@@ -81,7 +81,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 5, description = "Verify empty field validation for login")
     public void testEmptyFieldValidation() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.navigateToLogin();
+        loginPage.openLoginPage();
         
         // Attempt login without filling email
         loginPage.login("", "somepassword");

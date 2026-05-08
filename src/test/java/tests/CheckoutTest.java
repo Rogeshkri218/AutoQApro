@@ -16,6 +16,10 @@ public class CheckoutTest extends BaseTest {
         ProductPage productPage = new ProductPage(driver);
         CartPage cartPage = new CartPage(driver);
         CheckoutPage checkoutPage = new CheckoutPage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        
+        // Ensure user is not logged in for this test
+        loginPage.openLoginPage(); // This handles session cleanup automatically
         
         // Add product to cart
         productPage.navigateToProducts();
@@ -29,7 +33,6 @@ public class CheckoutTest extends BaseTest {
         Assert.assertTrue(checkoutPage.isRegisterLoginModalDisplayed(), "Register / Login modal should be displayed.");
         
         checkoutPage.clickRegisterLoginFromModal();
-        LoginPage loginPage = new LoginPage(driver);
         
         // As a basic validation, check if login button exists
         Assert.assertTrue(loginPage.isEmailFieldRequired(), "Should be redirected to login page.");
@@ -42,8 +45,8 @@ public class CheckoutTest extends BaseTest {
         CheckoutPage checkoutPage = new CheckoutPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         
-        // 1. Register a user first
-        loginPage.navigateToLogin();
+        // 1. Register a user first (starts from a clean state)
+        loginPage.openLoginPage();
         String randomEmail = "buyer" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
         loginPage.registerNewUser("Buyer User", randomEmail);
         loginPage.fillAccountInformation("Pass123", "Buyer", "User", "123 Main St", "NY", "New York", "10001", "1234567890");

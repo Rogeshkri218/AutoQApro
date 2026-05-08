@@ -9,19 +9,19 @@ public class CheckoutPage extends BasePage {
     private By placeOrderButton = By.xpath("//a[contains(@href, '/payment')]");
     
     // Checkout Modal (When not logged in)
-    private By registerLoginModalLink = By.xpath("//u[text()='Register / Login']");
+    private By registerLoginModalLink = By.xpath("//div[@class='modal-content']//u[text()='Register / Login']");
     
     // Payment Form
-    private By nameOnCardInput = By.name("name_on_card");
-    private By cardNumberInput = By.name("card_number");
-    private By cvcInput = By.name("cvc");
-    private By expiryMonthInput = By.name("expiry_month");
-    private By expiryYearInput = By.name("expiry_year");
-    private By payConfirmButton = By.id("submit");
+    private By nameOnCardInput = By.cssSelector("input[data-qa='name-on-card']");
+    private By cardNumberInput = By.cssSelector("input[data-qa='card-number']");
+    private By cvcInput = By.cssSelector("input[data-qa='cvc']");
+    private By expiryMonthInput = By.cssSelector("input[data-qa='expiry-month']");
+    private By expiryYearInput = By.cssSelector("input[data-qa='expiry-year']");
+    private By payConfirmButton = By.cssSelector("button[data-qa='pay-button']");
     
     // Order Confirmation
-    private By orderConfirmedText = By.xpath("//b[contains(text(), 'Order Placed!')]");
-    private By continueButton = By.xpath("//a[text()='Continue']");
+    private By orderConfirmedText = By.cssSelector("h2[data-qa='order-placed']");
+    private By continueButton = By.cssSelector("a[data-qa='continue-button']");
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
